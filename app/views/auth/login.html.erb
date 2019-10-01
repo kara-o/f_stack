@@ -2,16 +2,17 @@
   <%= flash[:message] %>
 <% end %>
 
-<h1>Flatiron's Stack Overflow</h1>
-<h2>Welcome!</h2>
+<h2>Welcome, please login!</h2>
 <br>
 
 <%= form_with model: @user do |f| %>
-  <%= f.label :display_name, "Username" %>
-  <%= f.text_field :display_name %><br>
+  <%= f.label :username, "Username" %>
+  <%= f.text_field :username %><br>
 
-  <%= f.label :email_address, "Email" %>
-  <%= f.text_field :email_address %><br>
+  <%= f.label :email, "Email" %>
+  <%= f.text_field :email %><br>
 
   <%= f.submit "Login" %>
 <% end %>
+<br>
+<%= link_to "New? Click here to create an account", new_user_path %>
