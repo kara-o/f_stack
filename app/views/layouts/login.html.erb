@@ -13,18 +13,7 @@
   <a href="/" class="">
     <h1>Flatiron's Stack Overflow</h1>
   </a>
-    <div class="right menu">
-      <% if logged_in? %>
-        Logged in as: <%= current_user.username %>
-        <%= link_to 'My Page', user_path(current_user) %>
-        <%= link_to 'Logout', logout_path %>
-
-      <% else %>
-        <%= link_to 'Existing User/Login', login_path %>
-        <%= link_to 'New User/Create Account', new_user_path %>
-      <% end %>
-    </div>
-</div>
+  </div>
 
   <body>
     <%= yield %>

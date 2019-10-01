@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  #root 'questions#index' ??? if not logged in can't post
+  root 'questions#index'
 
   resources :comments
   resources :answers
@@ -10,5 +10,7 @@ Rails.application.routes.draw do
 
   get '/login', to: 'auth#login', as: 'login'
   post '/login', to: 'auth#verify'
+
+  get '/logout', to: "auth#logout", as: "logout"
 
 end
