@@ -1,10 +1,11 @@
 <h2>Most Recent Questions</h2>
 
 <% @questions.each do |q| %>
-<ul>
-  <li><h3><%= link_to q.title, question_path(q.id) %></h3>
-  <h5>Created at <%= q.created_at.localtime.strftime("%I:%M:%S %p %m-%d-%Y") %></h5>
-  </li>
-</ul>
-
+  <% if q.deleted == false %>
+  <ul>
+    <li><h3><%= link_to q.title, question_path(q.id) %></h3>
+    <h5>Created at <%= q.created_at.localtime.strftime("%I:%M:%S %p %m-%d-%Y") %></h5>
+    </li>
+  </ul>
+  <% end %>
 <% end %>
