@@ -2,7 +2,7 @@
 <p><font size="2">Posted <%= @question.created_at.localtime.strftime("%I:%M:%S %p %m-%d-%Y") %> by <%= User.find(@question.user_id).username %></font></p>
 
 <% if @question.user_id == current_user.id %>
-  <p><font size="2"><%= link_to "Edit", edit_question_path(@question) %> <%= link_to "Delete", question_path(@question) %></font></p>
+  <p><font size="2"><%= link_to "Edit", edit_question_path(@question) %> <%= link_to "Delete", delete_question_path(@question) %></font></p>
 <% end %>
 
 <% @answers_sorted.each do |a| %>
