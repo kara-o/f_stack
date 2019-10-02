@@ -1,14 +1,16 @@
 <h1><%= @question.title %></h1>
 <p><font size="2">Posted <%= @question.created_at.localtime.strftime("%I:%M:%S %p %m-%d-%Y") %> by <%= User.find(@question.user_id).username %></font></p>
 
-<% @question.answers.each do |a| %>
+<% @answers_sorted.each do |a| %>
 
   <p><font size="5"><%= a.content %></font></p>
   <p><font size="2">Posted <%= a.created_at.localtime.strftime("%I:%M:%S %p %m-%d-%Y") %> by <%= User.find(a.user_id).username %></font></p>
 
-  <%= form_with model: @vote, class: "vote_button" do |f| %>
-    <%= f.hidden_field :answer_id, :value => a.id %>
-    <%= f.submit "↑" %><font size="2"><%= "#{a.votes.count}" %> votes</font> 
+  <% if logged_in? %>
+    <%= form_with model: @vote, class: "vote_button" do |f| %>
+      <%= f.hidden_field :answer_id, :value => a.id %>
+      <%= f.submit "↑" %><font size="2"><%= "#{a.votes.count}" %> votes</font>
+    <% end %>
   <% end %>
 
   <% a.comments.each do |c| %>
