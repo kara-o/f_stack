@@ -18,15 +18,15 @@ alex = User.create(username: "alex-o", email: "alex@flatiron.com")
 rooney = User.create(username: "rooney-o", email: "rooney@flatiron.com")
 birdie = User.create(username: "birdie-o", email: "birdie@flatiron.com")
 
-q1 = Question.create(title: "Ruby or JS?", content: "Do you prefer Ruby or JS?", user_id: 1)
-q2 = Question.create(title: "Favorite method?", content: "What is your favorite method?", user_id: 2)
+q1 = Question.create(title: "Ruby or JS?", content: "Do you prefer Ruby or JS?", user_id: kara.id)
+q2 = Question.create(title: "Favorite method?", content: "What is your favorite method?", user_id: alex.id)
 
-a1 = Answer.create(content: "I like beef!", user_id: 3, question_id: 1)
+a1 = Answer.create(content: "I like beef!", user_id: rooney.id, question_id: q1.id)
 
 c1 = Comment.create(content: "That is a silly answer, #{rooney.username}, the answer is chicken!", user_id: birdie.id, commentable_id: a1.id, commentable_type: a1.class.name )
 
 t1 = Tag.create(name: "Ruby")
 t2 = Tag.create(name: "JS")
 
-qt1 = QuestionTag.create(question_id: 1, tag_id: 1)
-qt2 = QuestionTag.create(question_id: 2, tag_id: 2)
+qt1 = QuestionTag.create(question_id: q1.id, tag_id: t1.id)
+qt2 = QuestionTag.create(question_id: q1.id, tag_id: t2.id)

@@ -1,1 +1,10 @@
-MAIN PAGE WITH ALL QUESTIONS LISTED
+<h2>Most Recent Questions</h2>
+
+<% @questions.each do |q| %>
+<ul>
+  <li><h3><%= link_to q.title, question_path(q.id) %></h3>
+  <h5>Created at <%= q.created_at %></h5>
+  </li>
+</ul>
+
+<% end %>
