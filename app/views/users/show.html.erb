@@ -4,9 +4,11 @@
 
 <h2>Questions</h2>
 <% @user.questions.each do |q| %>
+  <% if q.deleted == false %>
   <ul>
     <li><%=link_to q.title, question_path(q.id)%></li>
   </ul>
+  <% end %>
 <% end %>
 
 <h2>Answers</h2>
