@@ -1,6 +1,5 @@
 class QuestionsController < ApplicationController
-
-  before_action :set_question, only: [:show, :edit, :update, :destroy]
+  before_action :set_question, only: [:show, :edit, :update, :delete_status]
 
   def index
     @questions = Question.order(created_at: :desc)
@@ -26,7 +25,7 @@ class QuestionsController < ApplicationController
   end
 
   def delete_status
-    @question.update(:content => "This post no longer exists", :deleted => true)
+    @question.update(:title => "This post no longer exists", :content => "", :deleted => true)
     redirect_to user_path(current_user.id)
   end
 

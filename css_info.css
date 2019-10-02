@@ -1,0 +1,68 @@
+/* this will make page into 5 columns and 5 rows */
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 20% 20% 20% 20% 20%;
+  grid-template-rows; 20% 20% 20% 20% 20%;
+}
+
+header {
+  grid-column-start: 1;
+  grid-column-end: 6;
+  background: #ffcc99;
+  color: #e6ffff;
+  font-family: 'Amatic SC', cursive;
+}
+
+/* top right bottom left */
+header h2 {
+  font-family: 'Amatic SC', cursive;
+  font-size: 5vw;
+  padding: 0 0 0 15px;
+  text-decoration: underline;
+}
+
+aside li {
+  padding: 8%;
+  list-style: none;
+  font-family: 'Bitter', serif;
+  transition: all .2s ease-in-out;
+}
+
+aside li:hover {
+  color: #ff5500;
+  transform: scale(1.1);
+}
+
+footer {
+  grid-row-start: 5;
+  grid-column-start: 1;
+  grid-column-end: 6;
+  text-align: center;
+  background: #ff5500;
+  padding: 2% 0 0 0;
+  color: blue;
+}
+
+main {
+  overflow: scroll;
+  font-family: 'Work Sans', sans-serif;
+  grid-row-start: 2;
+  grid-row-end: : 5;
+  grid-column-start: 2;
+  grid-column-end: 6;
+  display: flex;
+}
+
+.blog-wrapper-head {
+  padding: 0 3% 0 3%;
+}
+
+.blog-wrapper-body {
+  display: grid;
+  grid-template-columns: 1fr 2fr 2fr 2fr;
+  background: #f0f5f5;
+}
+
+/* text-align justify */
