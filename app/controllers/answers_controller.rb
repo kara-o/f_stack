@@ -10,5 +10,9 @@ class AnswersController < ApplicationController
     redirect_to question_path(@answer.question.id)
   end
 
+  def delete_status
+
+    redirect_to user_path(current_user.id)
+  end
 
 end
