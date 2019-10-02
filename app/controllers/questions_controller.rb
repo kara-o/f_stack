@@ -13,7 +13,7 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    #@answers_sorted = @question.answers.order()
+    @answers_sorted = @question.answers.sort_by(&:vote_count).reverse
     @comment = Comment.new
     @answer = Answer.new
     @vote = Vote.new
