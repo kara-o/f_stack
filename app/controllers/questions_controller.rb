@@ -13,8 +13,10 @@ class QuestionsController < ApplicationController
   end
 
   def show
+    #@answers_sorted = @question.answers.order()
     @comment = Comment.new
     @answer = Answer.new
+    @vote = Vote.new
   end
 
   def edit
