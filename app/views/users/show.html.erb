@@ -1,3 +1,24 @@
 <% if flash[:message] %>
     <div class="flash-message"><%= flash[:message] %></div>
   <% end %>
+
+<h2>Questions</h2>
+<% @user.questions.each do |q| %>
+  <ul>
+    <li><%=link_to q.title, question_path(q.id)%></li>
+  </ul>
+<% end %>
+
+<h2>Answers</h2>
+<% @user.answers.each do |a| %>
+  <ul>
+      <li><%=link_to "#{a.content[0..30]}...", answer_path(a.id)%></li>
+  </ul>
+<% end %>
+
+<h2>Comments</h2>
+<% @user.comments.each do |c| %>
+  <ul>
+    <li><%=link_to "#{c.content[0..30]}...", comment_path(c.id)%></li>
+  </ul>
+<% end %>

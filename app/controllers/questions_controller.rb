@@ -13,6 +13,8 @@ class QuestionsController < ApplicationController
   end
 
   def show
+    @comment = Comment.new
+    @answer = Answer.new
   end
 
   def edit
