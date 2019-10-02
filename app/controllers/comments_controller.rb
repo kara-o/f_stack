@@ -14,4 +14,9 @@ class CommentsController < ApplicationController
     end
   end
 
+  def delete_status
+
+    redirect_to user_path(current_user.id)
+  end
+
 end

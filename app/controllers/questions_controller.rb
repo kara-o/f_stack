@@ -25,7 +25,9 @@ class QuestionsController < ApplicationController
   def update
   end
 
-  def destroy
+  def delete_status
+    @question.update(:content => "This post no longer exists", :delete => true)
+    redirect_to user_path(current_user.id)
   end
 
   private

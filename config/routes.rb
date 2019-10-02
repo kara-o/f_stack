@@ -2,10 +2,16 @@ Rails.application.routes.draw do
 
   root 'questions#index'
 
-  resources :comments
-  resources :answers
+  resources :comments, only: [:new, :create, :show, :edit, :update]
+  get '/comments/:id/delete', to: 'comments#delete_status', as: 'delete_comment'
+
+  resources :answers, only: [:new, :create, :show, :edit, :update]
+  get '/answers/:id/delete', to: 'answers#delete_status', as: 'delete_answer'
+
+  resources :questions, only: [:new, :create, :show, :edit, :update]
+  get '/questions/:id/delete', to: 'questions#delete_status', as: 'delete_question'
+
   resources :tags
-  resources :questions
   resources :users
   resources :votes
 
