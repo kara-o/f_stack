@@ -1,0 +1,15 @@
+<br>
+
+<h1><%= @question.title %></h1>
+<p><font size="2">Posted <%= @question.created_at %> by <%= User.find(@question.user_id).username %></font></p>
+
+<% @question.answers.each do |a| %>
+  <p><font size="5"><%= a.content %></font></p>
+  <p><font size="2">Posted <%= a.created_at %> by <%= User.find(a.user_id).username %></font></p>
+  <p><font size="2"><%= link_to "Make a Comment", new_comment_path %></font></p>
+      <% a.comments.each do |c| %>
+        <p><%= c.content %></p>
+        <p><font size="1">Posted <%= c.created_at %> by <%= User.find(c.user_id).username %></font></p>
+      <% end %>
+<% end %>
+<%= link_to "Post an Answer", new_answer_path %>
