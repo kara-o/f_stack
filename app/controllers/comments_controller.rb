@@ -19,7 +19,7 @@ class CommentsController < ApplicationController
   end
 
   def delete_status
-    @comment.update(:content => "This comment no longer exists", :deleted => true)
+    @comment.update(:deleted => true, :delete_message => "This comment is no longer available")
     redirect_to user_path(current_user.id)
   end
 

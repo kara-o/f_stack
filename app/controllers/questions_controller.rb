@@ -7,12 +7,14 @@ class QuestionsController < ApplicationController
   end
 
   def search
-    if params[:query]
-      @questions = Question.select { |q| q.title.downcase.include?(params[:query].downcase) || q.content.downcase.include?(params[:query].downcase) }
+    if params[:query] && !params[:query].empty?
+      @questions = Question.select { |q| q.deleted == false && q.title.downcase.include?(params[:query].downcase) || q.content.downcase.include?(params[:query].downcase) }
     elsif params[:tag_query]
       tag = Tag.find(params[:tag_query])
-      @questions = Question.all.select { |q| q.tags.include?(tag) }
-    else
+      @questions = Question.all.select { |q| q.deleted == false && q.tags.include?(tag) }
+    end
+
+    if !@questions || @questions.empty?
       flash[:message] = "Sorry, there were no matching results!"
       redirect_to questions_path
     end
@@ -44,7 +46,6 @@ class QuestionsController < ApplicationController
 
   def edit
     @question_tag = QuestionTag.new
-    @question_tags = @question.question_tags
   end
 
   def update
@@ -66,11 +67,11 @@ class QuestionsController < ApplicationController
       redirect_to @question
     else
       render :edit
-    end 
+    end
   end
 
   def delete_status
-    @question.update(:title => "This question no longer exists", :content => "", :deleted => true)
+    @question.update(:deleted => true, :delete_message => "This question is no longer available")
     redirect_to user_path(current_user.id)
   end
 

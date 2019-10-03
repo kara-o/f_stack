@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   resources :votes
 
   get '/search', to: 'questions#search', as: 'search'
+  post '/search', to: 'questions#search'
 
   get '/login', to: 'auth#login', as: 'login'
   post '/login', to: 'auth#verify'
