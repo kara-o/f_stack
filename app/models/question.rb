@@ -7,8 +7,9 @@ class Question < ApplicationRecord
   accepts_nested_attributes_for :question_tags
 
   def self.search(params)
+    # byebug
     if params[:query]
-      Question.select { |q| q.title.downcase.include?(query.downcase) || q.content.downcase.include?(query.downcase) }
+      Question.select { |q| q.title.downcase.include?(params[:query].downcase) || q.content.downcase.include?(params[:query].downcase) }
     elsif params[:tag_query]
       tag = Tag.find(params[:tag_query])
       Question.all.select { |q| q.tags.include?(tag) }
