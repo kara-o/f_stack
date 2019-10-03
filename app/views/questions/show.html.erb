@@ -2,12 +2,31 @@
 
 <% if @question.deleted == false %>
   <p><font size="2">Posted <%= @question.created_at.localtime.strftime("%I:%M:%S %p %m-%d-%Y") %> by <%= User.find(@question.user_id).username %></font></p>
-  <% if @question.user_id == current_user.id %>
+  <% if logged_in? && @question.user_id == current_user.id %>
     <p><font size="2"><%= link_to "Edit", edit_question_path(@question) %> <%= link_to "Delete", delete_question_path(@question) %></font></p>
   <% end %>
 <% end %>
 
 <p><font size="5"><%= @question.content %></font></p>
+
+<% @question.comments.each do |c| %>
+  <p><font size="2"><%= c.content %></font></p>
+  <% if c.deleted == false %>
+    <p><font size="1">Posted <%= c.created_at.localtime.strftime("%I:%M:%S %p %m-%d-%Y") %> by <%= User.find(c.user_id).username %></font></p>
+    <% if logged_in? && c.user_id == current_user.id %>
+      <p><font size="2"><%= link_to "Edit", edit_comment_path(c.id) %> <%= link_to "Delete", delete_comment_path(c.id) %></font></p>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% if logged_in? %>
+  <%= form_with model: @comment, class: "new_comment_form" do |f| %>
+    <%= f.text_field :content %>
+    <%= f.hidden_field :commentable_id, :value => @question.id %>
+    <%= f.hidden_field :commentable_type, :value => @question.class.name %>
+    <%= f.submit "Comment" %></font></p>
+  <% end %>
+<% end %>
 
 <% @answers_sorted.each do |a| %>
 
@@ -15,7 +34,7 @@
 
   <% if a.deleted == false %>
     <p><font size="2">Posted <%= a.created_at.localtime.strftime("%I:%M:%S %p %m-%d-%Y") %> by <%= User.find(a.user_id).username %></font></p>
-    <% if a.user_id == current_user.id %>
+    <% if logged_in? && a.user_id == current_user.id %>
       <p><font size="2"><%= link_to "Edit", edit_answer_path(a.id) %> <%= link_to "Delete", delete_answer_path(a.id) %></font></p>
     <% end %>
   <% end %>
@@ -31,7 +50,7 @@
     <p><font size="2"><%= c.content %></font></p>
     <% if c.deleted == false %>
       <p><font size="1">Posted <%= c.created_at.localtime.strftime("%I:%M:%S %p %m-%d-%Y") %> by <%= User.find(c.user_id).username %></font></p>
-      <% if c.user_id == current_user.id %>
+      <% if logged_in? && c.user_id == current_user.id %>
         <p><font size="2"><%= link_to "Edit", edit_comment_path(c.id) %> <%= link_to "Delete", delete_comment_path(c.id) %></font></p>
       <% end %>
     <% end %>
@@ -39,11 +58,10 @@
 
   <% if logged_in? %>
     <%= form_with model: @comment, class: "new_comment_form" do |f| %>
-      <p><font size="2"><%= f.label :content, "Add a Comment" %>
       <%= f.text_field :content %>
       <%= f.hidden_field :commentable_id, :value => a.id %>
       <%= f.hidden_field :commentable_type, :value => a.class.name %>
-      <%= f.submit "Submit" %></font></p>
+      <%= f.submit "Comment" %></font></p>
     <% end %>
   <% end %>
 
@@ -51,9 +69,9 @@
 
 <% if logged_in? %>
   <%= form_with model: @answer, class: "new_answer_form" do |f| %>
-    <p><font size="4"><%= f.label :content, "Post an Answer" %>
+    <p><font size="5"><%= f.label :content, "Post an Answer" %></font></p>
     <%= f.text_area :content %>
     <%= f.hidden_field :question_id, :value => @question.id %>
-    <%= f.submit "Submit" %></font></p>
+    <%= f.submit "Post" %></font></p>
   <% end %>
 <% end %>
