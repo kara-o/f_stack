@@ -1,0 +1,5 @@
+<%= form_with model: @answer, class: "edit_answer_form" do |f| %>
+  <p><font size="5"><%= f.label :content, "Edit Answer" %></font></p>
+  <%= f.text_area :content %>
+  <%= f.submit "Update" %></font></p>
+<% end %>

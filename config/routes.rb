@@ -13,13 +13,11 @@ Rails.application.routes.draw do
   resources :users
   resources :votes
 
-  get '/question_tags/:id/delete', to: 'question_tags#delete', as: 'delete_qt'
+  get '/search', to: 'questions#search', as: 'search'
 
   get '/login', to: 'auth#login', as: 'login'
   post '/login', to: 'auth#verify'
 
   get '/logout', to: "auth#logout", as: "logout"
-
-  root 'questions#index'
 
 end
