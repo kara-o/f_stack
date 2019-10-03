@@ -47,12 +47,12 @@
   <% end %>
 
   <% a.comments.each do |c| %>
+  <% if c.deleted == false %>
     <p><font size="2"><%= c.content %></font></p>
-    <% if c.deleted == false %>
-      <p><font size="1">Posted <%= c.created_at.localtime.strftime("%I:%M:%S %p %m-%d-%Y") %> by <%= User.find(c.user_id).username %></font></p>
+    <p><font size="1">Posted <%= c.created_at.localtime.strftime("%I:%M:%S %p %m-%d-%Y") %> by <%= User.find(c.user_id).username %></font></p>
       <% if logged_in? && c.user_id == current_user.id %>
         <p><font size="2"><%= link_to "Edit", edit_comment_path(c.id) %> <%= link_to "Delete", delete_comment_path(c.id) %></font></p>
-      <% end %>
+     <% end %>
     <% end %>
   <% end %>
 

@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
   before_action :set_user, only: :show
+  layout 'login', only: :new
 
   def new
-    render layout: 'login'
     @user = User.new
   end
 
