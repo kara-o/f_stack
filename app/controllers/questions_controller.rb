@@ -3,8 +3,19 @@ class QuestionsController < ApplicationController
   layout 'root_index_page', only: :index
 
   def index
-    # byebug
-    @questions = Question.search(params)
+    @questions = Question.all
+  end
+
+  def search
+    if params[:query]
+      @questions = Question.select { |q| q.title.downcase.include?(params[:query].downcase) || q.content.downcase.include?(params[:query].downcase) }
+    elsif params[:tag_query]
+      tag = Tag.find(params[:tag_query])
+      @questions = Question.all.select { |q| q.tags.include?(tag) }
+    else
+      flash[:message] = "Sorry, there were no matching results!"
+      redirect_to questions_path
+    end
   end
 
   def new
@@ -52,9 +63,10 @@ class QuestionsController < ApplicationController
           QuestionTag.create(question_id: @question.id, tag_id: id)
         end
       end
-    end
-
-    redirect_to @question
+      redirect_to @question
+    else
+      render :edit
+    end 
   end
 
   def delete_status
