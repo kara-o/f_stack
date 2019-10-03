@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: :show
 
   def new
+    render layout: 'login'
     @user = User.new
   end
 
@@ -17,6 +18,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    render layout: 'user_show_page'
   end
 
   private

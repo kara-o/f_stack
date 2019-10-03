@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   resources :tags
   resources :users
   resources :votes
+  resources :question_tags, only: [:new, :create]
 
   get '/login', to: 'auth#login', as: 'login'
   post '/login', to: 'auth#verify'

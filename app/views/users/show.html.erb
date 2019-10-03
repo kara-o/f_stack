@@ -2,6 +2,9 @@
     <div class="flash-message"><%= flash[:message] %></div>
   <% end %>
 
+<h3>Username: <%= current_user.username %></h3>
+<h3>Member Since: <%= current_user.created_at.localtime.strftime("%m-%d-%Y") %></h3>
+
 <h2>Questions</h2>
 <% @user.questions.each do |q| %>
   <% if q.deleted == false %>
