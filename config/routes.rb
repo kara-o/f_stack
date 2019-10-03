@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :answers, only: [:new, :create, :show, :edit, :update]
   get '/answers/:id/delete', to: 'answers#delete_status', as: 'delete_answer'
 
-  resources :questions, only: [:new, :create, :show, :edit, :update]
+  resources :questions, only: [:index, :new, :create, :show, :edit, :update]
   get '/questions/:id/delete', to: 'questions#delete_status', as: 'delete_question'
 
   resources :tags

@@ -3,7 +3,15 @@ class QuestionsController < ApplicationController
   layout 'root_index_page', only: :index
 
   def index
-    @questions = Question.order(created_at: :desc)
+    if params[:q]
+      @questions = Question.all.select{ |question| question.title.include?(params[:q]) || question.content.include?(params[:q]) || question.tags.map{ |t| t.name }.include?(params[:q])}.sort_by{ |question| question.created_at }
+      # if @questions.count == 0
+      #   flash[:message] = "Sorry, there were no matching results!"
+      #   redirect_to root_path
+      # end
+    else
+      @questions = Question.order(created_at: :desc)
+    end
   end
 
   def new
