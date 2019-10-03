@@ -3,6 +3,7 @@ class QuestionsController < ApplicationController
   layout 'root_index_page', only: :index
 
   def index
+    # byebug
     @questions = Question.search(params)
   end
 
@@ -36,13 +37,23 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    byebug
     @tag_ids = params[:question][:question_tag][:tag_id].select{ |id| !id.empty? }
     if @question.update(title: params[:question][:title], content: params[:question][:content])
+
+      @question.tags.each do |t|
+        if !@tag_ids.include?(t.id)
+          QuestionTag.find_by(tag_id: t.id, question_id: @question.id).destroy
+        end
+      end
+
       @tag_ids.each do |id|
-        QuestionTag.create(question_id: @question.id, tag_id: id)
+        tag = Tag.find(id)
+        if !@question.tags.include?(tag)
+          QuestionTag.create(question_id: @question.id, tag_id: id)
+        end
       end
     end
+
     redirect_to @question
   end
 
