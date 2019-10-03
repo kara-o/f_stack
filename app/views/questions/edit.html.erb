@@ -8,10 +8,8 @@
   <%= f.text_area :content %><br>
 
   <%= f.label :question_tag, "Update Tags" %>
-  <%= f.fields_for @question_tag do |qt_form| %>
-      <%= qt_form.collection_check_boxes :tag_id, Tag.all, :id, :name %>
-      <%= qt_form.hidden_field :question_id, :value => @question.id %>
-  <% end %>
+
+  <%= f.collection_check_boxes '[:question_tag][:tag_id]', Tag.all, :id, :name %>
 
   <%= f.submit "Update" %>
 <% end %>

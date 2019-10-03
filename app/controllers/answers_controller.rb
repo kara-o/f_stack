@@ -7,10 +7,11 @@ class AnswersController < ApplicationController
   end
 
   def show
+    redirect_to question_path(@answer.question.id)
   end
 
   def delete_status
-    @answer.update(:content => "This answer no longer exists", :deleted => true)
+    @answer.update(:deleted => true, :delete_message => "This answer is no longer available")
     redirect_to user_path(current_user.id)
   end
 
