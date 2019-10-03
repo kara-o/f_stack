@@ -1,9 +1,5 @@
 <h2>Most Recent Questions</h2>
-
-<% if flash[:message] %>
-  <%= flash[:message] %>
-<% end %>
-
+<%byebug%>
 <% @questions.each do |q| %>
   <% if q.deleted == false %>
   <ul>
@@ -14,8 +10,14 @@
   <% end %>
 <% end %>
 
-<%= form_with(url: "/questions", method: "get") do %>
-  <%= label_tag(:q, "Search for:") %>
-  <%= text_field_tag(:q) %>
-  <%= submit_tag("Search") %>
+<%= form_with(url: "/questions", method: "get") do |f| %>
+  <%= f.label :query, "Search" %>
+  <%= f.text_field :query %>
+  <%= f.submit "Search" %>
+<% end %>
+
+<%= form_with(url: "/questions", method: "get") do |f| %>
+  <%= f.label :tag_query, "Search by Tag" %>
+  <%= f.collection_select :tag_query, Tag.all, :id, :name %>
+  <%= f.submit "Search" %>
 <% end %>

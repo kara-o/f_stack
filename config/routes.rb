@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-  root 'questions#index'
-
   resources :comments, only: [:new, :create, :show, :edit, :update]
   get '/comments/:id/delete', to: 'comments#delete_status', as: 'delete_comment'
 
@@ -14,12 +12,14 @@ Rails.application.routes.draw do
   resources :tags
   resources :users
   resources :votes
-  resources :question_tags, only: [:new, :create]
+
+  get '/question_tags/:id/delete', to: 'question_tags#delete', as: 'delete_qt'
 
   get '/login', to: 'auth#login', as: 'login'
   post '/login', to: 'auth#verify'
 
   get '/logout', to: "auth#logout", as: "logout"
 
+  root 'questions#index'
 
 end

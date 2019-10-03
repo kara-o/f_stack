@@ -3,15 +3,7 @@ class QuestionsController < ApplicationController
   layout 'root_index_page', only: :index
 
   def index
-    if params[:q]
-      @questions = Question.all.select{ |question| question.title.include?(params[:q]) || question.content.include?(params[:q]) || question.tags.map{ |t| t.name }.include?(params[:q])}.sort_by{ |question| question.created_at }
-      # if @questions.count == 0
-      #   flash[:message] = "Sorry, there were no matching results!"
-      #   redirect_to root_path
-      # end
-    else
-      @questions = Question.order(created_at: :desc)
-    end
+    @questions = Question.search(params)
   end
 
   def new
@@ -21,7 +13,6 @@ class QuestionsController < ApplicationController
 
   def create
     @question = Question.new(title: params[:question][:title], content: params[:question][:content], user_id: current_user.id)
-    byebug
     @tag_ids = params[:question][:question_tag][:tag_id].select{ |id| !id.empty? }
     if @question.save
       @tag_ids.each do |id|
@@ -40,9 +31,19 @@ class QuestionsController < ApplicationController
   end
 
   def edit
+    @question_tag = QuestionTag.new
+    @question_tags = @question.question_tags
   end
 
   def update
+    byebug
+    @tag_ids = params[:question][:question_tag][:tag_id].select{ |id| !id.empty? }
+    if @question.update(title: params[:question][:title], content: params[:question][:content])
+      @tag_ids.each do |id|
+        QuestionTag.create(question_id: @question.id, tag_id: id)
+      end
+    end
+    redirect_to @question
   end
 
   def delete_status
@@ -57,7 +58,7 @@ class QuestionsController < ApplicationController
   end
 
   def question_params
-    params.require(:question).permit(:title, :content, :user_id, question_tag_attributes: [:question_id, :tag_ids => []])
+    params.require(:question).permit(:title, :content, :user_id, question_tag_attributes: [:question_id, :tag_id => []])
   end
 
 end

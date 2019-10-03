@@ -1,0 +1,24 @@
+<h2>Edit Question</h2>
+
+<%= form_with model: @question do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title %><br>
+
+  <%= f.label :content %>
+  <%= f.text_area :content %><br>
+
+  <%= f.label :question_tag, "Update Tags" %>
+  <%= f.fields_for @question_tag do |qt_form| %>
+      <%= qt_form.collection_check_boxes :tag_id, @question.tags, :id, :name %>
+      <%= qt_form.hidden_field :question_id, :value => @question.id %>
+  <% end %>
+
+  <%= f.submit "Update" %>
+<% end %>
+
+<h5>Edit Tags</h5>
+<% @question_tags.each do |qt| %>
+<ul>
+  <li><%= Tag.find(qt.tag_id).name %> <font size="1"><%= link_to "Remove", delete_qt_path %></font></li>
+</ul>
+<% end %>
