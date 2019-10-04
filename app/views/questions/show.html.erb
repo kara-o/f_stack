@@ -8,7 +8,7 @@
   <% if logged_in? && @question.user_id == current_user.id %>
     <p class="post_info"><font size="1"><%= link_to "Edit", edit_question_path(@question) %> <%= link_to "Delete", delete_question_path(@question) %></font></p>
   <% end %>
-  <p id="q-answer"><font size="5"><%= @question.content %></font></p>
+  <p id="q-answer"><font size="5"><%= simple_format(@question.content) %></font></p>
 <% else %>
   <p><font size="4"><%= @question.delete_message %></font></p>
 <% end %>
@@ -41,7 +41,7 @@
 <div id="answer-div">
 <% @answers_sorted.each do |a| %>
   <% if a.deleted == false %>
-    <p id="a-answer"><font size="5"><%= a.content %></font></p>
+    <p id="a-answer"><font size="5"><%= simple_format(a.content) %></font></p>
   <% else %>
     <p><font size="2"><%= a.delete_message %></font></p>
   <% end %>

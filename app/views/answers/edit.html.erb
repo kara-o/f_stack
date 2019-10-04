@@ -1,5 +1,7 @@
-<%= form_with model: @answer, class: "edit_answer_form" do |f| %>
-  <p><font size="5"><%= f.label :content, "Edit Answer" %></font></p>
-  <%= f.text_area :content %>
-  <%= f.submit "Update" %></font></p>
+<h2>Edit Answer</h2>
+
+<%= form_with model: @answer do |f| %>
+  <div id="edit_a_text"><%= f.label "Edit Answer: " %></div>
+  <%= f.text_area :content, size: "70 x 20" %><br>
+  <div id="edit_a_button"><%= f.submit "Update" %></div>
 <% end %>
