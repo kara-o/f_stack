@@ -113,3 +113,15 @@ h3, h4, h5, h5 {
 #post-q-button, #add_t_title, #add_q_title, #edit_a_text, #edit_a_button {
   padding: 10px;
 }
+
+div#answer-div > p {
+  margin-bottom: 0;
+}
+
+p:empty {
+  display: none;
+}
+
+.new_comment_form {
+  margin-top: 10px;
+}
