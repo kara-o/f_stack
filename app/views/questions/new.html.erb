@@ -7,13 +7,8 @@
   <%= f.label :content %>
   <%= f.text_area :content %><br>
 
-  <%= f.label :question_tag, "Add Tags" %>
-  <ul>
-  <%= f.fields_for @question_tag do |qt_form| %>
-      <%= qt_form.collection_check_boxes :tag_id, Tag.all, :id, :name %>
-      <%= qt_form.hidden_field :question_id, :value => @question.id %>
-  <% end %>
-  </ul>
+  <%= f.label :tag_ids, "Add Tags" %>
+  <%= f.collection_check_boxes :tag_ids, Tag.all, :id, :name %>
 
   <%= f.submit "Post" %>
 <% end %>
