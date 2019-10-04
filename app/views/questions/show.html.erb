@@ -1,20 +1,25 @@
 <% if @question.deleted == false %>
   <h1><%= @question.title %></h1>
-  <p><font size="2">Posted <%= @question.created_at.localtime.strftime("%I:%M:%S %p %m-%d-%Y") %> by <%= User.find(@question.user_id).username %>, Tags: <%= @question.tags.map{ |t| t.name }.join("   ") %></font></p>
+  <p class="post_info"><font size="1">Posted <%= @question.created_at.localtime.strftime("%I:%M:%S %p %m-%d-%Y") %> by <%= User.find(@question.user_id).username %>, Tags: <%= @question.tags.map{ |t| t.name }.join("   ") %> </font></p>
+  <% if @question.created_at != @question.updated_at %>
+    <p class="post_info"><font size="1">Edited <%= @question.updated_at.localtime.strftime("%I:%M:%S %p %m-%d-%Y") %></font></p>
+  <% end %>
+
   <% if logged_in? && @question.user_id == current_user.id %>
-    <p><font size="2"><%= link_to "Edit", edit_question_path(@question) %> <%= link_to "Delete", delete_question_path(@question) %></font></p>
+    <p class="post_info"><font size="1"><%= link_to "Edit", edit_question_path(@question) %> <%= link_to "Delete", delete_question_path(@question) %></font></p>
   <% end %>
   <p><font size="5"><%= @question.content %></font></p>
 <% else %>
   <p><font size="4"><%= @question.delete_message %></font></p>
 <% end %>
 
+<div class="comments-div">
 <% @question.comments.each do |c| %>
   <p><font size="2"><%= c.content %></font></p>
   <% if c.deleted == false %>
-    <p><font size="1">Posted <%= c.created_at.localtime.strftime("%I:%M:%S %p %m-%d-%Y") %> by <%= User.find(c.user_id).username %></font></p>
+    <p class="post_info"><font size="1">Posted <%= c.created_at.localtime.strftime("%I:%M:%S %p %m-%d-%Y") %> by <%= User.find(c.user_id).username %></font></p>
     <% if logged_in? && c.user_id == current_user.id %>
-      <p><font size="2"><%= link_to "Edit", edit_comment_path(c.id) %> <%= link_to "Delete", delete_comment_path(c.id) %></font></p>
+      <p class="post_info"><font size="1"><%= link_to "Edit", edit_comment_path(c.id) %> <%= link_to "Delete", delete_comment_path(c.id) %></font></p>
     <% end %>
   <% else %>
     <p><font size="2"><%= c.delete_message %></font></p>
@@ -26,9 +31,12 @@
     <%= f.text_field :content %>
     <%= f.hidden_field :commentable_id, :value => @question.id %>
     <%= f.hidden_field :commentable_type, :value => @question.class.name %>
-    <%= f.submit "Comment" %></font></p>
+    <%= f.submit "Comment" %>
   <% end %>
 <% end %>
+</div>
+
+<hr>
 
 <% @answers_sorted.each do |a| %>
   <% if a.deleted == false %>
@@ -38,9 +46,9 @@
   <% end %>
 
   <% if a.deleted == false %>
-    <p><font size="2">Posted <%= a.created_at.localtime.strftime("%I:%M:%S %p %m-%d-%Y") %> by <%= User.find(a.user_id).username %></font></p>
+    <p class="post_info"><font size="2">Posted <%= a.created_at.localtime.strftime("%I:%M:%S %p %m-%d-%Y") %> by <%= User.find(a.user_id).username %></font></p>
     <% if logged_in? && a.user_id == current_user.id %>
-      <p><font size="2"><%= link_to "Edit", edit_answer_path(a.id) %> <%= link_to "Delete", delete_answer_path(a.id) %></font></p>
+      <p class="post_info"><font size="2"><%= link_to "Edit", edit_answer_path(a.id) %> <%= link_to "Delete", delete_answer_path(a.id) %></font></p>
     <% end %>
   <% end %>
 
@@ -51,12 +59,14 @@
     <% end %>
   <% end %>
 
-  <% a.comments.each do |c| %>
+ <div class="comments-div">
+  <% sorted_comments = a.comments.sort_by{ |c| c.created_at } %>
+  <% sorted_comments.each do |c| %>
     <% if c.deleted == false %>
       <p><font size="2"><%= c.content %></font></p>
-      <p><font size="1">Posted <%= c.created_at.localtime.strftime("%I:%M:%S %p %m-%d-%Y") %> by <%= User.find(c.user_id).username %></font></p>
+      <p class="post_info"><font size="1">Posted <%= c.created_at.localtime.strftime("%I:%M:%S %p %m-%d-%Y") %> by <%= User.find(c.user_id).username %></font></p>
         <% if logged_in? && c.user_id == current_user.id %>
-          <p><font size="2"><%= link_to "Edit", edit_comment_path(c.id) %> <%= link_to "Delete", delete_comment_path(c.id) %></font></p>
+          <p class="post_info"><font size="1"><%= link_to "Delete", delete_comment_path(c.id) %></font></p>
        <% end %>
     <% else %>
       <p><font size="2"><%= c.delete_message %></font></p>
@@ -68,9 +78,10 @@
       <%= f.text_field :content %>
       <%= f.hidden_field :commentable_id, :value => a.id %>
       <%= f.hidden_field :commentable_type, :value => a.class.name %>
-      <%= f.submit "Comment" %></font></p>
+      <%= f.submit "Comment" %>
     <% end %>
-  <% end %>
+  <% end %></div>
+ <hr>
 <% end %>
 
 <% if logged_in? %>
