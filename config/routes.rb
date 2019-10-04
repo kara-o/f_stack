@@ -21,4 +21,6 @@ Rails.application.routes.draw do
 
   get '/logout', to: "auth#logout", as: "logout"
 
+  root 'questions#index'
+
 end
