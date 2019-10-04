@@ -22,12 +22,11 @@ class QuestionsController < ApplicationController
 
   def new
     @question = Question.new
-    @question_tag = QuestionTag.new
   end
 
   def create
-    @question = Question.new(title: params[:question][:title], content: params[:question][:content], user_id: current_user.id)
-    @tag_ids = params[:question][:question_tag][:tag_id].select{ |id| !id.empty? }
+    @question = Question.new(content: params[:question][:content], title: params[:question][:title], user_id: current_user.id)
+    @tag_ids = params[:question][:tag_ids].select{ |id| !id.empty? }
     if @question.save
       @tag_ids.each do |id|
         QuestionTag.create(question_id: @question.id, tag_id: id)
@@ -49,20 +48,12 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    @tag_ids = params[:question][:question_tag][:tag_id].select{ |id| !id.empty? }
+    @tag_ids = params[:question][:tag_ids].select{ |id| !id.empty? }
     if @question.update(title: params[:question][:title], content: params[:question][:content])
-
-      @question.tags.each do |t|
-        if !@tag_ids.include?(t.id)
-          QuestionTag.find_by(tag_id: t.id, question_id: @question.id).destroy
-        end
-      end
-
+      q_arr = QuestionTag.where(question_id: @question.id).select{ |qt| @tag_ids.include?(qt.tag_id.to_s) == false }
+      q_arr.each { |qt| qt.destroy }
       @tag_ids.each do |id|
-        tag = Tag.find(id)
-        if !@question.tags.include?(tag)
-          QuestionTag.create(question_id: @question.id, tag_id: id)
-        end
+        QuestionTag.create(question_id: @question.id, tag_id: id)
       end
       redirect_to @question
     else
@@ -82,7 +73,7 @@ class QuestionsController < ApplicationController
   end
 
   def question_params
-    params.require(:question).permit(:title, :content, :user_id, question_tag_attributes: [:question_id, :tag_id => []])
+    params.require(:question).permit(:title, :content)
   end
 
 end
