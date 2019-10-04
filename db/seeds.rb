@@ -54,7 +54,7 @@ a5 = Answer.create(content: "Jane, I would start over and follow all of the inst
 a6 = Answer.create(content: "Don't chase the green lights!!! You will go crazy...", user_id: krista.id, question_id: q7.id)
 
 c1 = Comment.create(content: "Define hard haha", user_id: alex.id , commentable_id: q1.id , commentable_type: q1.class.name)
-c2 = Comment.create(content: "Teach me how to do extensions!!", user_id: ian.h, commentable_id: a4.id, commentable_type: a4.class.name)
+c2 = Comment.create(content: "Teach me how to do extensions!!", user_id: ian.id, commentable_id: a4.id, commentable_type: a4.class.name)
 
 t1 = Tag.create(name: "Ruby")
 t2 = Tag.create(name: "JavaScript")
