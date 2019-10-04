@@ -6,3 +6,7 @@
     </li>
   </ul>
 <% end %>
+
+<%= form_with url: '/questions', method: 'get', local: true do |f| %>
+  <%= f.submit "Back" %>
+<% end %>

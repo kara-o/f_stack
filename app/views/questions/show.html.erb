@@ -9,8 +9,6 @@
   <p><font size="4"><%= @question.delete_message %></font></p>
 <% end %>
 
-
-
 <% @question.comments.each do |c| %>
   <p><font size="2"><%= c.content %></font></p>
   <% if c.deleted == false %>
@@ -73,7 +71,6 @@
       <%= f.submit "Comment" %></font></p>
     <% end %>
   <% end %>
-
 <% end %>
 
 <% if logged_in? %>
