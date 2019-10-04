@@ -3,15 +3,15 @@ class QuestionsController < ApplicationController
   layout 'root_index_page', only: :index
 
   def index
-    @questions = Question.all
+    @questions = Question.all[0..9]
   end
 
   def search
     if params[:query] && !params[:query].empty?
-      @questions = Question.select { |q| q.deleted == false && q.title.downcase.include?(params[:query].downcase) || q.content.downcase.include?(params[:query].downcase) }
+      @questions = Question.select { |q| q.deleted == false && q.title.downcase.include?(params[:query].downcase) || q.content.downcase.include?(params[:query].downcase) }[0..9]
     elsif params[:tag_query]
       tag = Tag.find(params[:tag_query])
-      @questions = Question.all.select { |q| q.deleted == false && q.tags.include?(tag) }
+      @questions = Question.all.select { |q| q.deleted == false && q.tags.include?(tag) }[0..9]
     end
 
     if !@questions || @questions.empty?
