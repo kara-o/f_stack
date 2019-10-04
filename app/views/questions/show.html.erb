@@ -88,9 +88,9 @@
 <div id="answer-div">
 <% if logged_in? %>
   <%= form_with model: @answer, class: "new_answer_form" do |f| %>
-    <p><font size="5"><%= f.label :content, "Post an Answer" %></font></p>
+    <p><font size="5"><%= f.label :content, "Post Answer" %></font></p>
     <%= f.text_area :content, size: "50 x 10" %>
-    <%= f.hidden_field :question_id, :value => @question.id %>
+    <%= f.hidden_field :question_id, :value => @question.id %><br>
     <%= f.submit "Post" %>
   <% end %>
 <% end %></div>

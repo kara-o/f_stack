@@ -5,8 +5,8 @@
   <% end %>
 <% end %>
 
-
-<h2>Create An Account</h2>
+<div id="new-user-page">
+<h2>Create a New Account</h2>
 
 
 <%= form_with model: @user do |f| %>
@@ -15,8 +15,9 @@
   <%= f.text_field :username %>
 
   <%= f.label :email %>
-  <%= f.text_field :email %>
+  <%= f.text_field :email, style: "width: 200px" %><br>
 
-  <%= f.submit "Create Account" %>
+  <div id="create-account-button"><%= f.submit "Create Account" %></div>
 
 <% end %>
+</div>
