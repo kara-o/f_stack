@@ -2,6 +2,7 @@ class User < ApplicationRecord
   has_many :questions
   has_many :answers
   has_many :comments
+  has_many :votes
 
   validates :username, presence: true
   validates :username, uniqueness: { if: -> { username.present? }, message: '%{value} is already taken, sorry!' }

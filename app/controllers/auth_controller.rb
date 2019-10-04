@@ -8,7 +8,7 @@ class AuthController < ApplicationController
     @user = User.find_by(username: params[:username])
     if @user && @user.email == params[:email] #&& @user.authenticate(params[:password])
       session[:user_id] = @user.id
-      redirect_to @user
+      redirect_to questions_path
     else
       flash[:message] = "Invalid login credentials, please try again or create a new account!"
       redirect_to login_path

@@ -12,6 +12,7 @@ Answer.destroy_all
 Comment.destroy_all
 Tag.destroy_all
 QuestionTag.destroy_all
+Vote.destroy_all
 
 kara = User.create(username: "kara-o", email: "kara@flatiron.com")
 alex = User.create(username: "alex-o", email: "alex@flatiron.com")
@@ -22,11 +23,25 @@ q1 = Question.create(title: "Ruby or JS?", content: "Do you prefer Ruby or JS?",
 q2 = Question.create(title: "Favorite method?", content: "What is your favorite method?", user_id: alex.id)
 
 a1 = Answer.create(content: "I like beef!", user_id: rooney.id, question_id: q1.id)
+a2 = Answer.create(content: "I like Ruby for now, but only because I don't know JS yet.", user_id: kara.id, question_id: q1.id)
 
 c1 = Comment.create(content: "That is a silly answer, #{rooney.username}, the answer is chicken!", user_id: birdie.id, commentable_id: a1.id, commentable_type: a1.class.name )
 
 t1 = Tag.create(name: "Ruby")
-t2 = Tag.create(name: "JS")
+t2 = Tag.create(name: "JavaScript")
+t3 = Tag.create(name: "Module 1")
+t4 = Tag.create(name: "Module 2")
+t5 = Tag.create(name: "Module 3")
+t6 = Tag.create(name: "Module 4")
+t7 = Tag.create(name: "Module 5")
+t8 = Tag.create(name: "GitHub")
+t9 = Tag.create(name: "White Board")
+t10 = Tag.create(name: "Rails")
+t11 = Tag.create(name: "Final Project")
 
 qt1 = QuestionTag.create(question_id: q1.id, tag_id: t1.id)
 qt2 = QuestionTag.create(question_id: q1.id, tag_id: t2.id)
+
+v1 = Vote.create(answer_id: a2.id, user_id: alex.id)
+v2 = Vote.create(answer_id: a2.id, user_id: birdie.id)
+v3 = Vote.create(answer_id: a1.id, user_id: kara.id)
