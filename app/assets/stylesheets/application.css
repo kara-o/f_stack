@@ -125,3 +125,16 @@ p:empty {
 .new_comment_form {
   margin-top: 10px;
 }
+
+p {
+  margin: 0;
+}
+
+#login-page, #new-user-page {
+  text-align: center;
+  padding: 50px;
+}
+
+#create-account-button {
+  padding: 10px;
+}
