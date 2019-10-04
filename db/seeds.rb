@@ -50,7 +50,7 @@ a1 = Answer.create(content: "Make sure you know FizzBuzz and Fibonacci, as those
 a2 = Answer.create(content: "I highly recommend LeetCode for practice intervew questions!", user_id: justin.id , question_id: q1.id )
 a3 = Answer.create(content: "Ian, that's a great idea!!!  Love it.", user_id: krista.id, question_id: q4.id)
 a4 = Answer.create(content: "I made a Chrome extension for that!!  Slack me and I'll send you a link to download, it's not on the public Chrome webstore", user_id: kara.id, question_id: q5.id)
-a5 = Answer.create(content: "Jane, I would start over and follow all of the instructions from the Manual Setup page instructions - https://help.learn.co/en/articles/900121-mac-osx-manual-environment-set-up")
+#a5 = Answer.create(content: "Jane, I would start over and follow all of the instructions from the Manual Setup page instructions - https://help.learn.co/en/articles/900121-mac-osx-manual-environment-set-up")
 a6 = Answer.create(content: "Don't chase the green lights!!! You will go crazy...", user_id: krista.id, question_id: q7.id)
 
 c1 = Comment.create(content: "Define hard haha", user_id: alex.id , commentable_id: q1.id , commentable_type: q1.class.name)

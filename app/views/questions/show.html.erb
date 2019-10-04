@@ -41,7 +41,7 @@
 <div id="answer-div">
 <% @answers_sorted.each do |a| %>
   <% if a.deleted == false %>
-    <p id="a-answer"><font size="5"><%= simple_format(a.content) %></font></p>
+    <p id="a-answer"><font size="4"><%= simple_format(a.content) %></font></p>
   <% else %>
     <p><font size="2"><%= a.delete_message %></font></p>
   <% end %>
