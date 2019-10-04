@@ -2,9 +2,13 @@
     <div class="flash-message"><%= flash[:message] %></div>
   <% end %>
 
+<div id="user-container">
+<div id="user-column-1">
 <h3>Username: <%= current_user.username %></h3>
-<h3>Member Since: <%= current_user.created_at.localtime.strftime("%m-%d-%Y") %></h3>
+<h3>Member since: <%= current_user.created_at.localtime.strftime("%m-%d-%Y") %></h3>
+</div>
 
+<div id="user-column-2">
 <h2>Questions</h2>
 <% @user.questions.each do |q| %>
   <% if q.deleted == false %>
@@ -31,3 +35,4 @@
   </ul>
   <% end %>
 <% end %>
+</div></div>
