@@ -28,7 +28,7 @@
 
 <% if logged_in? %>
   <%= form_with model: @comment, class: "new_comment_form" do |f| %>
-    <%= f.text_field :content %>
+    <%= f.text_field :content, style: "width: 200px" %>
     <%= f.hidden_field :commentable_id, :value => @question.id %>
     <%= f.hidden_field :commentable_type, :value => @question.class.name %>
     <%= f.submit "Comment" %>
@@ -76,7 +76,7 @@
 
   <% if logged_in? %>
     <%= form_with model: @comment, class: "new_comment_form" do |f| %>
-      <%= f.text_field :content %>
+      <%= f.text_field :content, style: "width: 200px" %>
       <%= f.hidden_field :commentable_id, :value => a.id %>
       <%= f.hidden_field :commentable_type, :value => a.class.name %>
       <%= f.submit "Comment" %>
