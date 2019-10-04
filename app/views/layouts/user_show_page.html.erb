@@ -12,9 +12,6 @@
 
   <div class="navbar">
   <%= link_to 'Home', root_path %>
-  <div class = "center_menu">
-     <%= link_to 'Post Question', new_question_path %>
-    </div>
     <div class="right menu">
       <% if logged_in? %>
         Logged in as: <%= current_user.username %>

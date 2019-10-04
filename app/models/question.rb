@@ -5,7 +5,9 @@ class Question < ApplicationRecord
   has_many :tags, through: :question_tags
   has_many :comments, as: :commentable
   accepts_nested_attributes_for :tags
-  # 
+
+  validates :content, presence: true
+  #
   # def self.search(params)
   #   # byebug
   #   if params[:query]
