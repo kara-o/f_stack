@@ -1,14 +1,13 @@
 <h2>New Question</h2>
 
 <%= form_with model: @question do |f| %>
-  <%= f.label :title %>
-  <%= f.text_field :title %><br>
+  <div id="add_q_title"><%= f.label "Title: " %>
+  <%= f.text_field :title, style: "width: 300px" %></div><br>
 
-  <%= f.label :content %>
-  <%= f.text_area :content %><br>
+  <div id="new_q_content"><%= f.text_area :content, size: "70 x 20", placeholder: "Write your question here!" %></div><br>
 
-  <%= f.label :tag_ids, "Add Tags" %>
-  <%= f.collection_check_boxes :tag_ids, Tag.all, :id, :name %>
+  <div id="add_t_title"><%= f.label :tag_ids, "Add Tags: " %><br></div>
+  <%= f.collection_check_boxes :tag_ids, Tag.all, :id, :name %><br>
 
-  <%= f.submit "Post" %>
+  <div id="post-q-button"><%= f.submit "Post" %></div>
 <% end %>
