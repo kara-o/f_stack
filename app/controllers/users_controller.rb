@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: :show
+  layout 'login', only: :new
 
   def new
     @user = User.new
@@ -9,7 +10,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       flash[:message] = "Account successfully created!"
-      redirect_to @user
+      redirect_to login_path
     else
       flash[:message] = @user.errors.full_messages
       redirect_to new_user_path(@user)
@@ -17,6 +18,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    render layout: 'user_show_page'
   end
 
   private

@@ -1,4 +1,4 @@
-<h2>New Question</h2>
+<h2>Edit Question</h2>
 
 <%= form_with model: @question do |f| %>
   <%= f.label :title %>
@@ -7,8 +7,8 @@
   <%= f.label :content %>
   <%= f.text_area :content %><br>
 
-  <%= f.label :tag_ids, "Add Tags" %>
+  <%= f.label :tag_ids, "Edit Tags" %>
   <%= f.collection_check_boxes :tag_ids, Tag.all, :id, :name %>
 
-  <%= f.submit "Post" %>
+  <%= f.submit "Update" %>
 <% end %>
